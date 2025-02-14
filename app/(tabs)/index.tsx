@@ -1,7 +1,13 @@
-import { View, StyleSheet, Text, ScrollView} from 'react-native';
+import React, {useState} from 'react';
+import { View, StyleSheet, Text, ScrollView, Switch } from 'react-native';
 import VacationDestinations from '@/constants/list_items'
 
+
 export default function HomeScreen() {
+
+  
+
+
   return (
     <View style={styles.container}>
         <Text style={styles.textSubHeader}>Choose the destinations you would like a quote for.</Text>
@@ -9,11 +15,20 @@ export default function HomeScreen() {
 
     <ScrollView>
       {VacationDestinations.map(({location, price, average_yearly_temperature}) => {
+        const [isEnabled, setIsEnabled] = useState(false);
+        const toggleSwitch = () => setIsEnabled(previousState => !previousState);
         return (
           <View style={styles.whiteBox}>
             <Text style={styles.textButtons} >{location}</Text>
-            <Text style={styles.textButtons} >{price}</Text>
+            <Text style={styles.textButtons} >${price}</Text>
             <Text style={styles.textButtons} >{average_yearly_temperature}</Text>
+            <Switch
+              style={styles.switch}
+              trackColor={{false: '#767577', true: '#5F8575'}}
+              thumbColor={isEnabled ? '#50C878' : '#f4f3f4'}
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+            />
           </View>
         )
       })}
@@ -36,7 +51,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderRadius: 20,
     width: 350,
-    height: 100,
+    height: 'auto',
     alignSelf: 'center',
     justifyContent: 'center',
     marginTop: 20,
@@ -49,6 +64,9 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     justifyContent: 'center',
     marginTop: 10,
+    marginBottom: 10,
+  },
+  switch: {
     marginBottom: 10,
   },
   loginBox: { // Style for grey search bar
