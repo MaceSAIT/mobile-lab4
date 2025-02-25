@@ -5,9 +5,6 @@ import VacationDestinations from '@/constants/list_items'
 
 export default function HomeScreen() {
 
-  
-
-
   return (
     <View style={styles.container}>
         <Text style={styles.textSubHeader}>Choose the destinations you would like a quote for.</Text>
